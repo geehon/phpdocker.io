@@ -25,7 +25,7 @@ use Symfony\Component\Yaml\Dumper;
 
 class DockerCompose implements GeneratedFileInterface
 {
-    private const DOCKER_COMPOSE_FILE_VERSION = '3.1';
+    private const string DOCKER_COMPOSE_FILE_VERSION = '3.1';
 
     /** @var array<string, mixed> */
     private array  $services;
@@ -213,6 +213,7 @@ class DockerCompose implements GeneratedFileInterface
             'volumes'     => [
                 $this->defaultVolume,
                 sprintf('./phpdocker/%s:/etc/php/%s/fpm/conf.d/99-overrides.ini', $this->phpIniLocation, $shortVersion),
+                sprintf('./phpdocker/%s:/etc/php/%s/cli/conf.d/99-overrides.ini', $this->phpIniLocation, $shortVersion),
             ],
         ];
 

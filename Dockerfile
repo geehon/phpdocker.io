@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.2
+ARG PHP_VERSION=8.3
 
 ###########
 # Backend #
@@ -73,11 +73,9 @@ RUN yarn install --immutable
 
 ## Actual deployable frontend image
 FROM nginx:alpine AS frontend-deployment
-#FROM phpdockerio/nginx-pagespeed:latest AS frontend-deployment
 
 WORKDIR /application
 
-#COPY infrastructure/nginx/pagespeed.conf /etc/nginx/pagespeed.conf
 COPY infrastructure/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 # NGINX config: update php-fpm hostname to localhost (same pod in k8s), activate pagespeed config, deactivate SSL
@@ -88,5 +86,5 @@ RUN sed -i "s/php-fpm/localhost/g"       /etc/nginx/conf.d/default.conf \
 
 COPY --from=frontend-installer node_modules/@bower_components public/vendor
 
-COPY public/css    public/css
-COPY public/js     public/js
+COPY public/css public/css
+COPY public/js  public/js
