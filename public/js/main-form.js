@@ -59,7 +59,7 @@ function doMainFormMagic () {
         $(checkboxId)
             .data('multiselect', extensionMultiSelects)
             .data('value', value)
-            .change(function () {
+            .on('change', function () {
                 $(this).data('multiselect').multiselect('select', $(this).data('value'))
             })
     }
